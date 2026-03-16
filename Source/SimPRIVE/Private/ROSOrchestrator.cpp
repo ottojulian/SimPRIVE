@@ -132,6 +132,15 @@ void AROSOrchestrator::SubscribeToTopics()
 		{
 			UE_LOG(LogTemp, Error, TEXT("Empty Resume topic name! Skipping callback init."));
 		}
+		//Me suscribo al tópico de CameraRotation
+		if (!CameraRotationTopicName.IsEmpty()) {
+			CameraRotationTopic = NewObject<UTopic>(UTopic::StaticClass());
+			CameraRotationTopic->Init(rosinst->ROSIntegrationCore, CameraRotationTopicName, TEXT("geometry_msgs/Vector3"));
+			CameraRotationTopic->Subscribe(std::bind(&AROSOrchestrator::CameraRotationCallback, this, std::placeholders::_1));
+		}
+		else {
+			UE_LOG(LogTemp, Error, TEXT("Empty Camera Rotation topic name! Skipping callback init."));
+		}
 	}
 }
 
@@ -165,6 +174,10 @@ void AROSOrchestrator::AdvertiseTopics()
 		//AdditionalInfoPublisher = MakeShareable(NewObject<UTopic>(UTopic::StaticClass()));
 		AdditionalInfoPublisher->Init(rosinst->ROSIntegrationCore, TEXT("/rover/additional_info"), TEXT("std_msgs/Float32"));
 		AdditionalInfoPublisher->Advertise();
+
+		CameraRotationPublisher = NewObject<UTopic>(UTopic::StaticClass());
+		CameraRotationPublisher->Init(rosinst->ROSIntegrationCore, TEXT("/rover/cam_rotation"), TEXT("geometry_msgs/Vector3"));
+		CameraRotationPublisher->Advertise();
 	}
 }
 
@@ -577,5 +590,41 @@ void AROSOrchestrator::ResumeSimCallback(TSharedPtr<FROSBaseMsg> Msg)
 
 	}
 }
+
+void AROSOrchestrator::CameraRotationCallback(TSharedPtr<FROSBaseMsg> Msg) {
+	if (!Msg.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Invalid CameraRotation message"));
+		return;
+	}
+
+	// Cast al tipo correcto
+	TSharedPtr<ROSMessages::geometry_msgs::Vector3> VecMsg =
+		StaticCastSharedPtr<ROSMessages::geometry_msgs::Vector3>(Msg);
+
+	if (!VecMsg.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("CameraRotation cast failed"));
+		return;
+	}
+
+	float Roll = VecMsg->x;
+	float Pitch = VecMsg->y;
+	float Yaw = VecMsg->z;
+
+	// IMPORTANTE: tocar actores solo en el GameThread
+	AsyncTask(ENamedThreads::GameThread, [this, Roll, Pitch, Yaw]()
+		{
+			if (!Camera)
+			{
+				UE_LOG(LogTemp, Error, TEXT("Camera not assigned in ROSOrchestrator"));
+				return;
+			}
+
+			FRotator NewRot(Pitch, Yaw, Roll);
+			Camera->SetActorRotation(NewRot);
+		});
+}
+
 
 

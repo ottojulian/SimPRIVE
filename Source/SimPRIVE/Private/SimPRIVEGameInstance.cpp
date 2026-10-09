@@ -63,8 +63,8 @@ bool USimPRIVEGameInstance::ReadIPConfig(FString& OutIP, int32& OutPort)
 
     if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
     {
-        OutIP = JsonObject->GetStringField("IPAddress");
-        OutPort = JsonObject->GetIntegerField("Port");
+        OutIP = JsonObject->GetStringField(TEXT("IPAddress"));
+        OutPort = JsonObject->GetIntegerField(TEXT("Port"));
         return true;
     }
 

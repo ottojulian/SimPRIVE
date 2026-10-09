@@ -11,6 +11,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2504.21454-b31b1b.svg)](https://arxiv.org/abs/2504.21454)  
 
+Or read the paper on [IEEEXplore](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=11423662).
 
 Don't hesitate to get in touch for modifications, extensions, new features and customizations!
 
@@ -97,10 +98,15 @@ https://github.com/user-attachments/assets/a83aa968-7376-43cc-b81d-c29ef6e9e44e
 If you use SimPRIVE in your research, please cite:
 
 ```bibtex
-@article{nesti2025simprive,
-  title={SimPRIVE: a Simulation framework for Physical Robot Interaction with Virtual Environments},
+@INPROCEEDINGS{11423662,
   author={Nesti, Federico and D'Amico, Gianluca and Marinoni, Mauro and Buttazzo, Giorgio},
-  journal={arXiv preprint arXiv:2504.21454},
-  year={2025}
-}
+  booktitle={2025 IEEE 28th International Conference on Intelligent Transportation Systems (ITSC)}, 
+  title={SimPRIVE: A Simulation Framework for Physical Robot Interaction with Virtual Environments}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={907-913},
+  keywords={Navigation;Software algorithms;Virtual environments;Reinforcement learning;Robot sensing systems;Rendering (computer graphics);Digital twins;Collision avoidance;Robots;Engines},
+  doi={10.1109/ITSC60802.2025.11423662}}
+
 ```

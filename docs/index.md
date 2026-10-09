@@ -29,6 +29,7 @@ SimPRIVE is a flexible simulation framework designed to let physical robots in t
 </div>
 
 ## 📄 Research
+📎 [Read the official paper](https://ieeexplore.ieee.org/document/11423662)
 
 📎 [Read the pre-print](https://arxiv.org/abs/2504.21454)
 
@@ -129,7 +130,7 @@ Install **[rosbridge_suite](https://github.com/tsender/rosbridge_suite/tree/ros2
 1. Launch the ROS 2 TCP server:
 
     ```bash
-    ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+    ros2 launch rosbridge_server rosbridge_tcp_launch.xml
     ```
 
 2. Ensure a ROS node is publishing to `/odom`.
@@ -142,12 +143,17 @@ Install **[rosbridge_suite](https://github.com/tsender/rosbridge_suite/tree/ros2
 To cite this work, use the following BibTeX entry:
 
 <pre>
-@article{nesti2025simprive,
-  title={SimPRIVE: a Simulation framework for Physical Robot Interaction with Virtual Environments},
+@INPROCEEDINGS{11423662,
   author={Nesti, Federico and D'Amico, Gianluca and Marinoni, Mauro and Buttazzo, Giorgio},
-  journal={arXiv preprint arXiv:2504.21454},
-  year={2025}
-}
+  booktitle={2025 IEEE 28th International Conference on Intelligent Transportation Systems (ITSC)}, 
+  title={SimPRIVE: A Simulation Framework for Physical Robot Interaction with Virtual Environments}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={907-913},
+  keywords={Navigation;Software algorithms;Virtual environments;Reinforcement learning;Robot sensing systems;Rendering (computer graphics);Digital twins;Collision avoidance;Robots;Engines},
+  doi={10.1109/ITSC60802.2025.11423662}}
+
 </pre>
 
 ---
